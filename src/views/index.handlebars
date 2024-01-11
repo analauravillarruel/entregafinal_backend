@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Catalogo de Productos</h1>
+  <table>
+    <tr>
+      <th>title</th>
+      <th>description</th>
+      <th>price</th>
+      <th>thumbnail</th>
+      <th>code</th>
+    </tr>
+    {{#each products}}
+    <tr>
+      <td>{{this.title}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.price}}</td>
+      <td>{{this.<td><img src="{{this.thumbnail}}" alt="Thumbnail" style="width: 50px;"></td>}}</td>
+      <td>{{this.code}}</td>
+    </tr>
+    {{/each}}
+    </table>
+
+<script>
+    const socket = io();
+
+    socket.on('newProduct', (product) => {
+      const parsedProduct = JSON.parse(product);
+      const productList = document.getElementById('productList');
+      const newProductItem = document.createElement('li');
+      newProductItem.textContent = `${parsedProduct.id} - ${parsedProduct.title} - ${parsedProduct.price}`;
+      productList.appendChild(newProductItem);
+    });
+  </script>
+  
+</body>
+</html>
